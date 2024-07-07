@@ -1,6 +1,6 @@
 package com.plcoding.roomguideandroid
 
-sealed interface ContactEvent {
+sealed interface ContactEvent {                                             //Contain different events = user actions
     object SaveContact: ContactEvent
     data class SetFirstName(val firstName: String): ContactEvent
     data class SetLastName(val lastName: String): ContactEvent

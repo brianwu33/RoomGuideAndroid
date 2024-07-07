@@ -1,6 +1,6 @@
 package com.plcoding.roomguideandroid
 
-data class ContactState(
+data class ContactState(                                                //Why a State Class
     val contacts: List<Contact> = emptyList(),
     val firstName: String = "",
     val lastName: String = "",

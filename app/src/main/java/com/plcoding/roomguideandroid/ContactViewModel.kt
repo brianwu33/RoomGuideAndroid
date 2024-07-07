@@ -11,6 +11,7 @@ class ContactViewModel(
     private val dao: ContactDao
 ): ViewModel() {
 
+    //1
     private val _sortType = MutableStateFlow(SortType.FIRST_NAME)
     private val _contacts = _sortType
         .flatMapLatest { sortType ->
@@ -21,9 +22,9 @@ class ContactViewModel(
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
-
+    //2
     private val _state = MutableStateFlow(ContactState())
-    val state = combine(_state, _sortType, _contacts) { state, sortType, contacts ->
+    val state = combine(_state, _sortType, _contacts) { state, sortType, contacts ->                    //Combine 3 flows into 1 flow
         state.copy(
             contacts = contacts,
             sortType = sortType
@@ -32,6 +33,7 @@ class ContactViewModel(
 
     fun onEvent(event: ContactEvent) {
         when(event) {
+            //3
             is ContactEvent.DeleteContact -> {
                 viewModelScope.launch {
                     dao.deleteContact(event.contact)
